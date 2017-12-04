@@ -1,0 +1,4 @@
+Dec 04, 2017 5:36:28 PM Database.Database connect
+INFO: Connected to database!
+Dec 04, 2017 5:39:32 PM Database.DBHandler insertSong
+SEVERE: Duplicate entry 'testsong' for key 'PRIMARY'
