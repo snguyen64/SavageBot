@@ -1,5 +1,10 @@
 ./gradle/
+*/gradle/
+**/gradle/
+***/gradle/
 ./idea/
+*/idea
+**/idea/
 ./db/
 ./gradle/
 ./out/
