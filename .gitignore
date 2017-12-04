@@ -12,3 +12,10 @@
 *.lck
 config.json
 *.class
+*.iml
+/.idea/workspace.xml
+.settings
+.project
+.classpath
+*.class
+.idea
