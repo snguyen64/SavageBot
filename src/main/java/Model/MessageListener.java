@@ -2,8 +2,6 @@ package Model;
 
 import Audio.AudioMain;
 import Controller.Main;
-import Music.MusicManager;
-import Music.MusicPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import net.dv8tion.jda.core.entities.*;
@@ -77,23 +75,7 @@ public class MessageListener extends ListenerAdapter {
             }
 
 
-            //
-            if (mentionMessage.startsWith("play ")) {
-                VoiceChannel voiceChannel = guild.getMember(user).getVoiceState().getChannel();
-                if (voiceChannel == null) {
-                    channel.sendMessage("You're not even in a channel dummy...").queue();
-                } else {
-                    if (!guild.getAudioManager().isConnected()
-                            && !guild.getAudioManager().isAttemptingToConnect()) {
-                        guild.getAudioManager().openAudioConnection(voiceChannel);
-                        new MusicManager().loadTrack(event.getTextChannel(), mentionMessage.replaceFirst("play ", ""));
-                    }
-                }
-            }
 
-            if (mentionMessage.equals("skip")) {
-                new MusicManager().getPlayer(guild).skipTrack();
-            }
 
             if (mentionMessage.equals("leave")) {
                 guild.getAudioManager().closeAudioConnection();
