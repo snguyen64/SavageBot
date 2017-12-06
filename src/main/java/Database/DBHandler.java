@@ -338,6 +338,7 @@ public class DBHandler {
         PreparedStatement getInsult = handler.prepareStatement(this.getInsult);
         try {
             ResultSet rs = getInsult.executeQuery();
+            rs.next();
             insult = new Insult(rs.getString(1));
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
@@ -388,6 +389,7 @@ public class DBHandler {
         PreparedStatement getCompliment = handler.prepareStatement(this.getCompliment);
         try {
             ResultSet rs = getCompliment.executeQuery();
+            rs.next();
             compliment = new Compliment(rs.getString(1));
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());

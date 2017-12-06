@@ -1,9 +1,12 @@
 package Model;
 
+import Audio.AudioMain;
 import Controller.Main;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import Music.MusicManager;
+import Music.MusicPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -14,12 +17,27 @@ public class MessageListener extends ListenerAdapter {
     private User user;
     private Message message;
     private MessageChannel channel;
+    private Guild guild;
+
+    //this class calls the musiccontoller
+    //the music controller accesses the musicScheduler
+        //the music scheduller is just the queue for music -- it has simple functions like
+        //add removing from the music queue
+        //each song is an audiotrack that's loaded into the queue
+    //creating a new instance of the music controller requires a playermanage
+    //the music controller takes in a new MUSICPLAYER
+    //that MUSICPLAYER also has a MUSICMANAGER
+
+
+
+    private AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         user = event.getAuthor();
         message = event.getMessage();
         channel = event.getChannel();
+        guild = event.getGuild();
         //this is the full readable message
         String msg = message.getContent();
 
@@ -57,6 +75,40 @@ public class MessageListener extends ListenerAdapter {
             if (mentionMessage.contains("compliment")) {
                 complimentCommands(mentionMessage);
             }
+
+
+            //
+            if (mentionMessage.startsWith("play ")) {
+                VoiceChannel voiceChannel = guild.getMember(user).getVoiceState().getChannel();
+                if (voiceChannel == null) {
+                    channel.sendMessage("You're not even in a channel dummy...").queue();
+                } else {
+                    if (!guild.getAudioManager().isConnected()
+                            && !guild.getAudioManager().isAttemptingToConnect()) {
+                        guild.getAudioManager().openAudioConnection(voiceChannel);
+                        new MusicManager().loadTrack(event.getTextChannel(), mentionMessage.replaceFirst("play ", ""));
+                    }
+                }
+            }
+
+            if (mentionMessage.equals("skip")) {
+                new MusicManager().getPlayer(guild).skipTrack();
+            }
+
+            if (mentionMessage.equals("leave")) {
+                guild.getAudioManager().closeAudioConnection();
+            }
+
+            if (mentionMessage.startsWith("specialplay")) {
+                AudioMain audioMain = new AudioMain();
+                audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("specialplay ", ""));
+            }
+            //stopping songs
+            //stoping playlists
+
+
+            //switching playlists?
+
 
             //LEADER SPECIFIC COMMANDS
             if (Main.getHandler().getUserIsLeader(user.getName())) {
