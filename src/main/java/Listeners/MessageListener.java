@@ -1,7 +1,10 @@
-package Model;
+package Listeners;
 
 import Audio.AudioMain;
 import Controller.Main;
+import POJO.Insult;
+import POJO.Playlist;
+import POJO.Song;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import net.dv8tion.jda.core.entities.*;
@@ -16,19 +19,8 @@ public class MessageListener extends ListenerAdapter {
     private Message message;
     private MessageChannel channel;
     private Guild guild;
-
-    //this class calls the musiccontoller
-    //the music controller accesses the musicScheduler
-        //the music scheduller is just the queue for music -- it has simple functions like
-        //add removing from the music queue
-        //each song is an audiotrack that's loaded into the queue
-    //creating a new instance of the music controller requires a playermanage
-    //the music controller takes in a new MUSICPLAYER
-    //that MUSICPLAYER also has a MUSICMANAGER
-
-
-
-    private AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
+    private VoiceChannel voiceChannel;
+    private AudioMain audioMain = new AudioMain();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -36,6 +28,8 @@ public class MessageListener extends ListenerAdapter {
         message = event.getMessage();
         channel = event.getChannel();
         guild = event.getGuild();
+        voiceChannel = event.getMember().getVoiceState().getChannel();
+
         //this is the full readable message
         String msg = message.getContent();
 
@@ -74,23 +68,30 @@ public class MessageListener extends ListenerAdapter {
                 complimentCommands(mentionMessage);
             }
 
-
-
+            if (mentionMessage.equals("skip")) {
+                audioMain.skipTrack(channel, guild);
+            }
 
             if (mentionMessage.equals("leave")) {
-                guild.getAudioManager().closeAudioConnection();
+                audioMain.disconnectAudio(guild);
             }
 
-            if (mentionMessage.startsWith("specialplay")) {
-                AudioMain audioMain = new AudioMain();
-                audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("specialplay ", ""));
+            if (mentionMessage.equals("pause")) {
+                audioMain.pause(guild);
             }
-            //stopping songs
-            //stoping playlists
 
+            if (mentionMessage.equals("resume")) {
+                audioMain.resume(guild);
+            }
 
-            //switching playlists?
-
+            if (mentionMessage.startsWith("play")) {
+                if (voiceChannel == null) {
+                    channel.sendMessage("You're not in a voice channel dummy....").queue();
+                } else {
+                    audioMain.connectAudio(guild, voiceChannel);
+                    audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("play ", ""));
+                }
+            }
 
             //LEADER SPECIFIC COMMANDS
             if (Main.getHandler().getUserIsLeader(user.getName())) {

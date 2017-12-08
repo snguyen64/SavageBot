@@ -1,4 +1,4 @@
-package Model;
+package POJO;
 
 public class Compliment {
     private String compliment;

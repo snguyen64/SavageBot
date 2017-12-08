@@ -1,10 +1,10 @@
 package Database;
 
 import Controller.Main;
-import Model.Compliment;
-import Model.Insult;
-import Model.Playlist;
-import Model.Song;
+import POJO.Compliment;
+import POJO.Insult;
+import POJO.Playlist;
+import POJO.Song;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

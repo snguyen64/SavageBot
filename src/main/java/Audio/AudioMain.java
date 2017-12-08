@@ -3,14 +3,13 @@ package Audio;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.core.entities.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +38,16 @@ public class AudioMain {
         return musicManager;
     }
 
+    public void disconnectAudio(Guild guild) {
+        musicManagers.get(guild.getIdLong()).getScheduler().clear();
+        musicManagers.get(guild.getIdLong()).getPlayer().destroy();
+        guild.getAudioManager().closeAudioConnection();
+    }
+
+    public void connectAudio(Guild guild, VoiceChannel voiceChannel) {
+        guild.getAudioManager().openAudioConnection(voiceChannel);
+    }
+
 
     public void loadAndPlay(final TextChannel channel, final String trackUrl) {
         MusicManager musicManager = getGuildAudioPlayer(channel.getGuild());
@@ -47,21 +56,18 @@ public class AudioMain {
             @Override
             public void trackLoaded(AudioTrack track) {
                 channel.sendMessage("Adding to queue " + track.getInfo().title).queue();
-
-                play(channel.getGuild(), musicManager, track);
+                play(musicManager, track);
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 AudioTrack firstTrack = playlist.getSelectedTrack();
-
                 if (firstTrack == null) {
                     firstTrack = playlist.getTracks().get(0);
                 }
-
-                channel.sendMessage("Adding to queue " + firstTrack.getInfo().title + " (first track of playlist " + playlist.getName() + ")").queue();
-
-                play(channel.getGuild(), musicManager, firstTrack);
+                channel.sendMessage("Adding to queue " + firstTrack.getInfo().title
+                        + " (first track of playlist " + playlist.getName() + ")").queue();
+                play(musicManager, firstTrack);
             }
 
             @Override
@@ -76,24 +82,25 @@ public class AudioMain {
         });
     }
 
-    private void play(Guild guild, MusicManager musicManager, AudioTrack track) {
-        connectToFirstVoiceChannel(guild.getAudioManager());
+    public void play(MusicManager musicManager, AudioTrack track) {
         musicManager.getScheduler().queue(track);
     }
 
-    private void skipTrack(TextChannel channel) {
-        MusicManager musicManager = getGuildAudioPlayer(channel.getGuild());
-        musicManager.getScheduler().nextTrack();
-
-        channel.sendMessage("Skipped to next track.").queue();
+    public void skipTrack(MessageChannel channel, Guild guild) {
+        MusicManager musicManager = getGuildAudioPlayer(guild);
+        if (musicManager.getScheduler().emptyQueue()) {
+            channel.sendMessage("Nothing is is the queue.").queue();
+        } else {
+            musicManager.getScheduler().nextTrack();
+            channel.sendMessage("Skipped to next track.").queue();
+        }
     }
 
-    private static void connectToFirstVoiceChannel(AudioManager audioManager) {
-        if (!audioManager.isConnected() && !audioManager.isAttemptingToConnect()) {
-            for (VoiceChannel voiceChannel : audioManager.getGuild().getVoiceChannels()) {
-                audioManager.openAudioConnection(voiceChannel);
-                break;
-            }
-        }
+    public void pause(Guild guild) {
+        getGuildAudioPlayer(guild).getPlayer().setPaused(true);
+    }
+
+    public void resume(Guild guild) {
+        getGuildAudioPlayer(guild).getPlayer().setPaused(false);
     }
 }

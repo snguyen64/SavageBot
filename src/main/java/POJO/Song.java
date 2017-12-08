@@ -1,4 +1,4 @@
-package Model;
+package POJO;
 
 public class Song {
     private String song;

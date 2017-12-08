@@ -2,8 +2,8 @@ package Controller;
 
 import Database.Configuration;
 import Database.DBHandler;
-import Model.GuildMemberListener;
-import Model.MessageListener;
+import Listeners.GuildMemberListener;
+import Listeners.MessageListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
