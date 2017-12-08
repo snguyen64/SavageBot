@@ -326,14 +326,14 @@ public class MessageListener extends ListenerAdapter {
                 String[] songPlaylist = songAndPlaylist.split(" -> ");
                 if (songPlaylist.length == 2) {
                     if (Main.getHandler().playlistExists(songPlaylist[1])) {
-                        if (Main.getHandler().insertSong(songPlaylist[0].replaceFirst(songType.toString(), ""),
+                        if (Main.getHandler().insertSong(songPlaylist[0].replaceFirst(songType.toString() + "song", ""),
                                 songPlaylist[1], songType.toString())) {
                             channel.sendMessage(songPlaylist[0]
-                                    .replaceFirst(songType.toString() + " song: ", "")
+                                    .replaceFirst(songType.toString() + "song", "")
                                     + " was added to " + songPlaylist[1]).queue();
                         } else {
                             channel.sendMessage(songPlaylist[0]
-                                    .replaceFirst(songType + " song", "")
+                                    .replaceFirst(songType.toString() + "song", "")
                                     + " could not be added " +
                                     "to " + songPlaylist[1] +
                                     ". check if the song is already in the playlist " +
