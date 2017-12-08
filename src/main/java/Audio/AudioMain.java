@@ -14,6 +14,7 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.TrackMarker;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -93,6 +94,9 @@ public class AudioMain {
                 } else {
                     //adds just 1 track
                     AudioTrack audioTrack = playlist.getSelectedTrack();
+                    if (audioTrack == null) {
+                        audioTrack = playlist.getTracks().get(0);
+                    }
                     play(musicManager, audioTrack);
                     channel.sendMessage(audioTrack.getInfo().title + " added to queue.").queue();
                 }
