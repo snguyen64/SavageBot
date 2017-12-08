@@ -20,7 +20,9 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class AudioMain {
     private final AudioPlayerManager playerManager;
@@ -33,12 +35,13 @@ public class AudioMain {
         AudioSourceManagers.registerLocalSource(playerManager);
         //when searching do ytsearch: [trackname]
         playerManager.registerSourceManager(new YoutubeAudioSourceManager(true));
+        //when searching do scsearch: [trackname]
         playerManager.registerSourceManager(new SoundCloudAudioSourceManager());
-        playerManager.registerSourceManager(new BandcampAudioSourceManager());
-        playerManager.registerSourceManager(new VimeoAudioSourceManager());
-        playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
-        playerManager.registerSourceManager(new BeamAudioSourceManager());
-        playerManager.registerSourceManager(new HttpAudioSourceManager());
+//        playerManager.registerSourceManager(new BandcampAudioSourceManager());
+//        playerManager.registerSourceManager(new VimeoAudioSourceManager());
+//        playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
+//        playerManager.registerSourceManager(new BeamAudioSourceManager());
+//        playerManager.registerSourceManager(new HttpAudioSourceManager());
     }
 
     public synchronized MusicManager getGuildAudioPlayer(Guild guild) {
@@ -65,7 +68,7 @@ public class AudioMain {
     }
 
 
-    public void loadAndPlay(final TextChannel channel, final String trackUrl) {
+    public void loadAndPlay(final TextChannel channel, final String trackUrl, boolean linkPlaylist) {
         MusicManager musicManager = getGuildAudioPlayer(channel.getGuild());
 
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
@@ -77,13 +80,22 @@ public class AudioMain {
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
-                AudioTrack firstTrack = playlist.getSelectedTrack();
-                if (firstTrack == null) {
-                    firstTrack = playlist.getTracks().get(0);
+                if (linkPlaylist) {
+                    //adds the full playlist
+                    List<AudioTrack> queue = playlist.getTracks();
+                    for (AudioTrack audioTrack : queue) {
+                        channel.sendMessage("Adding to queue: " + audioTrack.getInfo().title).queue();
+                    }
+                    musicManager.getScheduler().queue(queue);
+                    if (musicManager.getPlayer().getPlayingTrack() == null) {
+                        musicManager.getScheduler().nextTrack();
+                    }
+                } else {
+                    //adds just 1 track
+                    AudioTrack audioTrack = playlist.getSelectedTrack();
+                    play(musicManager, audioTrack);
+                    channel.sendMessage(audioTrack.getInfo().title + " added to queue.").queue();
                 }
-                channel.sendMessage("Adding to queue " + firstTrack.getInfo().title
-                        + " (first track of playlist " + playlist.getName() + ")").queue();
-                play(musicManager, firstTrack);
             }
 
             @Override
@@ -102,13 +114,15 @@ public class AudioMain {
         musicManager.getScheduler().queue(track);
     }
 
-    public void skipTrack(MessageChannel channel, Guild guild) {
+    public boolean skipTrack(MessageChannel channel, Guild guild) {
         MusicManager musicManager = getGuildAudioPlayer(guild);
-        if (musicManager.getScheduler().emptyQueue()) {
+        if (musicManager.getScheduler().isEmpty()) {
             channel.sendMessage("Nothing is is the queue.").queue();
+            return false;
         } else {
             musicManager.getScheduler().nextTrack();
             channel.sendMessage("Skipped to next track.").queue();
+            return true;
         }
     }
 
@@ -118,5 +132,9 @@ public class AudioMain {
 
     public void resume(Guild guild) {
         getGuildAudioPlayer(guild).getPlayer().setPaused(false);
+    }
+
+    public void stop(Guild guild) {
+        getGuildAudioPlayer(guild).getPlayer().stopTrack();
     }
 }

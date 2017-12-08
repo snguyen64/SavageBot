@@ -13,6 +13,7 @@ PRIMARY KEY playlist_name_key(playlist_name)
 CREATE TABLE Songs (
 song VARCHAR(255),
 playlist VARCHAR(255),
+linkType VARCHAR(255),
 PRIMARY KEY song_key(song),
 CONSTRAINT fk_playlist FOREIGN KEY(playlist)
 REFERENCES Playlists (playlist_name) ON DELETE CASCADE

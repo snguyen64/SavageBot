@@ -33,10 +33,10 @@ public class DBHandler {
     private String playlistExists = "SELECT * FROM Playlists WHERE playlist_name = ?";
 
     //song calls
-    private String insertSong = "INSERT INTO Songs(song, playlist) VALUES (?, " +
-            "(SELECT playlist_name FROM Playlists WHERE playlist_name = ?))";
+    private String insertSong = "INSERT INTO Songs(song, playlist, linkType) VALUES (?, " +
+            "(SELECT playlist_name FROM Playlists WHERE playlist_name = ?), ?)";
     private String deleteSong = "DELETE FROM Songs WHERE song = ? AND playlist = ?";
-    private String getAllSongsFromPlaylist = "SELECT song FROM Songs WHERE playlist = ?";
+    private String getAllSongsFromPlaylist = "SELECT * FROM Songs WHERE playlist = ?";
     private String songIsInPlaylist = "SELECT song FROM Songs WHERE song = ? AND playlist = ?";
 
     //insults
@@ -205,7 +205,7 @@ public class DBHandler {
             getPlaylist.setString(1, s);
             ResultSet rs = getPlaylist.executeQuery();
             while (rs.next()) {
-                playlist.addSong(new Song(rs.getString(1)));
+                playlist.addSong(new Song(rs.getString(1), rs.getString(3)));
             }
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
@@ -237,7 +237,7 @@ public class DBHandler {
             getPlaylistShuffled.setString(1, s);
             ResultSet rs = getPlaylistShuffled.executeQuery();
             while (rs.next()) {
-                playlist.addSong(new Song(rs.getString(1)));
+                playlist.addSong(new Song(rs.getString(1), rs.getString(3)));
             }
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
@@ -265,13 +265,15 @@ public class DBHandler {
      * inserts specific song into the playlist
      * @param song the song name
      * @param playlist the playlist name
+     * @param songtype the type of song: yt/sc/link
      * @return returns whether or not it was successful
      */
-    public boolean insertSong(String song, String playlist) {
+    public boolean insertSong(String song, String playlist, String songtype) {
         PreparedStatement insertSong = handler.prepareStatement(this.insertSong);
         try {
             insertSong.setString(1, song);
             insertSong.setString(2, playlist);
+            insertSong.setString(3, songtype);
             insertSong.execute();
             return true;
         } catch (SQLException e) {

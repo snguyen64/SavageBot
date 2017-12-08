@@ -50,7 +50,7 @@ public class MessageListener extends ListenerAdapter {
 
             //playlist related commands
             if (mentionMessage.contains("playlist")) {
-                playlistCommands(mentionMessage);
+                playlistCommands(mentionMessage, event);
             }
 
             //song in playlist related commands
@@ -69,10 +69,13 @@ public class MessageListener extends ListenerAdapter {
             }
 
             if (mentionMessage.equals("skip")) {
-                audioMain.skipTrack(channel, guild);
+                if (!audioMain.skipTrack(channel, guild)) {
+                    audioMain.stop(guild);
+                }
             }
 
             if (mentionMessage.equals("leave")) {
+                audioMain.getGuildAudioPlayer(guild).getPlayer().destroy();
                 audioMain.disconnectAudio(guild);
             }
 
@@ -89,12 +92,15 @@ public class MessageListener extends ListenerAdapter {
                     channel.sendMessage("You're not in a voice channel dummy....").queue();
                 } else {
                     audioMain.connectAudio(guild, voiceChannel);
-                    audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("play ", ""));
+                    if (mentionMessage.startsWith("playFull"))
+                        audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("playFull ", ""), true);
+                    else
+                        audioMain.loadAndPlay(event.getTextChannel(), mentionMessage.replaceFirst("play ", ""), false);
                 }
             }
 
             //LEADER SPECIFIC COMMANDS
-            if (Main.getHandler().getUserIsLeader(user.getName())) {
+            if (Main.getHandler().getUserIsLeader(user.getId())) {
 
                 //Leadership commands
                 if (mentionMessage.contains("leadership")) {
@@ -135,7 +141,7 @@ public class MessageListener extends ListenerAdapter {
             if (mentionedLeaders.size() > 0) {
                 for (User u: mentionedLeaders) {
                     if (!Main.getHandler().getUserIsLeader(u.toString())) {
-                        Main.getHandler().insertLeader(u.getName());
+                        Main.getHandler().insertLeader(u.getId());
                         channel.sendMessage("Heil, mein Führer!  ヾ(´ε｀*)"
                                 + u.getAsMention()).queue();
                     } else {
@@ -150,10 +156,10 @@ public class MessageListener extends ListenerAdapter {
             List<User> toBeRemoved = message.getMentionedUsers();
             if (toBeRemoved.size() > 0) {
                 for (User u : toBeRemoved) {
-                    if (Main.getHandler().getUserIsLeader(u.getName())
+                    if (Main.getHandler().getUserIsLeader(u.getId())
                             //adding an exception for me
                             //you can't dethrone the king
-                            && !u.getName().equals("Steven")) {
+                            && !(u.getName().equals("Steven"))) {
                         Main.getHandler().removeLeader(u.getName());
                         channel.sendMessage("Pfft.... you were " +
                                 "a shitty leader anyways, " + u.getAsMention()).queue();
@@ -172,19 +178,29 @@ public class MessageListener extends ListenerAdapter {
     public void commandCall() {
         channel.sendMessage("```" +
                 "Commands List\n" +
-                ".-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.\n" +
-                "1.1 $play [song link]\n" +
-                "1.2 $play ytsearch: [songname]\n" +
-                "1. $show playlists\n" +
-                "2. $add playlist [playlistname]\n" +
-                "3. $remove playlist [playlistname]\n" +
-                "4. $show songs for [playlist name]\n" +
-                "5. $add song [songname] to [playlistname]\n" +
-                "6. $remove song [songname] from [playlistname]\n" +
-                "7. $add insult [insult phrase]\n" +
-                "8. $add compliment [compliment phrase]\n" +
-                "9. $insult @[personname]\n" +
-                "10. $compliment @[personname]\n" +
+                ".-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.\n\n" +
+                "To play music, either use a link, or a search function\n" +
+                "1.1 $play [song link]\n\n" +
+                "This will play the whole youtube playlist\n" +
+                "1.1 $playFull [song link]\n\n" +
+                "1.20 $play ytsearch: [youtube song name]\n" +
+                "1.21 $playFull ytsearch: [youtube playlist name]\n\n" +
+                "1.30. $play scsearch: [soundcloud song name]\n" +
+                "1.31. $playFull scsearch: [soundcloud playlist name]\n\n" +
+
+                //THESE NEED TO BE FIXED
+                "2. $add song [songname] [type(youtube, soundcloud, link)] to [playlistname]\n" +
+                "3. $remove song [songname] from [playlistname]\n" +
+                "4. $show playlists\n" +
+                "5. $add playlist [playlistname]\n" +
+                "6. $remove playlist [playlistname]\n" +
+                "7. $show songs for [playlist name]\n\n" +
+
+
+                "8. $add insult [insult phrase]\n" +
+                "9. $add compliment [compliment phrase]\n" +
+                "10. $insult @[personname]\n" +
+                "11. $compliment @[personname]\n" +
                 "```").queue();
         if (Main.getHandler().getUserIsLeader(user.getName())) {
             channel.sendMessage("\n```" +
@@ -202,8 +218,31 @@ public class MessageListener extends ListenerAdapter {
      * -add a playlist
      * -remove a playlist
      * @param mentionMessage the message to specify which command
+     * @param event is the event of message
      */
-    public void playlistCommands(String mentionMessage) {
+    public void playlistCommands(String mentionMessage, MessageReceivedEvent event) {
+        if (mentionMessage.startsWith("playlist play ")) {
+            String playlistname = mentionMessage.replaceFirst("playlist play ", "");
+            Playlist currentplaylist = Main.getHandler().getPlaylist(playlistname);
+            if (playlistname == null || playlistname.length() == 0) {
+                channel.sendMessage("That playlist doesn't exist, dummy....").queue();
+            } else {
+                if (voiceChannel == null) {
+                    channel.sendMessage("You're not in a voice channel dummy....").queue();
+                } else {
+                    audioMain.connectAudio(guild, voiceChannel);
+                    for (Song song: currentplaylist.getSongs()) {
+                        if (song.getSongType().length() == 0) {
+//                            audioMain.loadAndPlay(event.getTextChannel(), song.toString());
+                        } else {
+                            String search = (song.getSongType().equals("youtube")) ? "ytsearch: " : "scsearch: ";
+//                            audioMain.loadAndPlay(event.getTextChannel(), search + song.getSong());
+                        }
+                    }
+                }
+            }
+        }
+
         if (mentionMessage.startsWith("show playlists")) {
             List<Playlist> playlists = Main.getHandler().getAllPlaylists();
             if (playlists.size() == 0) {
@@ -272,10 +311,13 @@ public class MessageListener extends ListenerAdapter {
             String[] songPlaylist = songAndPlaylist.split(" to ");
             if (songPlaylist.length == 2) {
                 if (Main.getHandler().playlistExists(songPlaylist[1])) {
-                    if (Main.getHandler().insertSong(songPlaylist[0], songPlaylist[1])) {
-                        channel.sendMessage(songPlaylist[0] + " was added to " + songPlaylist[1]).queue();
+                    String songType = (songPlaylist[0].contains("youtube "))
+                            ? (songPlaylist[0].contains("soundcloud ")) ? "youtube" : "soundcloud" : "";
+
+                    if (Main.getHandler().insertSong(songPlaylist[0], songPlaylist[1], songType)) {
+                        channel.sendMessage(songPlaylist[0].replaceFirst(songType, "") + " was added to " + songPlaylist[1]).queue();
                     } else {
-                        channel.sendMessage(songPlaylist[0] + " could not be added " +
+                        channel.sendMessage(songPlaylist[0].replaceFirst(songType, "") + " could not be added " +
                                 "to " + songPlaylist[1] +
                                 ". check if the song is already in the playlist " +
                                 " or if the playlist doesn't exist").queue();
