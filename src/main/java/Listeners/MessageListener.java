@@ -173,6 +173,8 @@ public class MessageListener extends ListenerAdapter {
         channel.sendMessage("```" +
                 "Commands List\n" +
                 ".-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.\n" +
+                "1.1 $play [song link]\n" +
+                "1.2 $play ytsearch: [songname]\n" +
                 "1. $show playlists\n" +
                 "2. $add playlist [playlistname]\n" +
                 "3. $remove playlist [playlistname]\n" +

@@ -2,6 +2,7 @@ package POJO;
 
 public class Song {
     private String song;
+    private boolean youtube;
 
     public Song(String song) {
         this.song = song;
@@ -16,6 +17,14 @@ public class Song {
     }
 
     public String toString() {
-        return song;
+        return (youtube) ? "ytsearch: " + song : song;
+    }
+
+    public boolean isYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(boolean youtube) {
+        this.youtube = youtube;
     }
 }

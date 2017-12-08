@@ -2,25 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="05284b5c-7add-43d3-8df5-b25ad744060e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/Compliment.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/GuildMemberListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/Insult.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/MessageListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/Playlist.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/classes/Model/Song.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/Compliment.java" afterPath="$PROJECT_DIR$/src/main/java/POJO/Compliment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/GuildMemberListener.java" afterPath="$PROJECT_DIR$/src/main/java/Listeners/GuildMemberListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/Insult.java" afterPath="$PROJECT_DIR$/src/main/java/POJO/Insult.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/MessageListener.java" afterPath="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/Playlist.java" afterPath="$PROJECT_DIR$/src/main/java/POJO/Playlist.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/Model/Song.java" afterPath="$PROJECT_DIR$/src/main/java/POJO/Song.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/Controller/Main.class" afterPath="$PROJECT_DIR$/out/production/classes/Controller/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/classes/Database/DBHandler.class" afterPath="$PROJECT_DIR$/out/production/classes/Database/DBHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Audio/AudioMain.java" afterPath="$PROJECT_DIR$/src/main/java/Audio/AudioMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Audio/TrackScheduler.java" afterPath="$PROJECT_DIR$/src/main/java/Audio/TrackScheduler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Controller/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Controller/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Database/DBHandler.java" afterPath="$PROJECT_DIR$/src/main/java/Database/DBHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" afterPath="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/POJO/Song.java" afterPath="$PROJECT_DIR$/src/main/java/POJO/Song.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -56,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MessageListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+            <state relative-caret-position="183">
+              <caret line="176" column="52" lean-forward="true" selection-start-line="176" selection-start-column="52" selection-end-line="176" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,47 +53,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AudioMain.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Song.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Song.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+              <folding>
+                <element signature="e#313#314#0" expanded="true" />
+                <element signature="e#374#375#0" expanded="true" />
+                <element signature="e#438#439#0" expanded="true" />
+                <element signature="e#485#486#0" expanded="true" />
+                <element signature="e#523#524#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AudioMain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Audio/AudioMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+            <state relative-caret-position="296">
+              <caret line="33" column="49" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3573#3574#0" expanded="true" />
-                <element signature="e#3629#3630#0" expanded="true" />
-                <element signature="e#4075#4076#0" expanded="true" />
-                <element signature="e#4145#4146#0" expanded="true" />
-                <element signature="e#4184#4185#0" expanded="true" />
-                <element signature="e#4255#4256#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YoutubeAudioSourceManager.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeAudioSourceManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2839">
-              <caret line="49" column="13" lean-forward="false" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrackScheduler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Audio/TrackScheduler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1003">
-              <caret line="59" column="33" lean-forward="false" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2167#2168#0" expanded="true" />
-                <element signature="e#2207#2208#0" expanded="true" />
-                <element signature="e#2236#2237#0" expanded="true" />
-                <element signature="e#2288#2289#0" expanded="true" />
-                <element signature="e#2315#2316#0" expanded="true" />
-                <element signature="e#2344#2345#0" expanded="true" />
+                <element signature="e#4753#4754#0" expanded="true" />
+                <element signature="e#4809#4810#0" expanded="true" />
+                <element signature="e#5255#5256#0" expanded="true" />
+                <element signature="e#5325#5326#0" expanded="true" />
+                <element signature="e#5364#5365#0" expanded="true" />
+                <element signature="e#5435#5436#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,6 +114,10 @@
       <find>manager</find>
       <find>getcompl</find>
       <find>loadan</find>
+      <find>loadtra</find>
+      <find>loadtrack</find>
+      <find>audioitem</find>
+      <find>register</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -465,9 +442,10 @@
         <option value="$PROJECT_DIR$/src/main/java/Model/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/POJO/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/Listeners/GuildMemberListener.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/Audio/TrackScheduler.java" />
         <option value="$PROJECT_DIR$/src/main/java/Audio/AudioMain.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/POJO/Song.java" />
       </list>
     </option>
   </component>
@@ -759,35 +737,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.DV8FromTheWorld/JDA/-SNAPSHOT/289a264eb3c0d96f0019aed209a618bec4bd2845/JDA--SNAPSHOT-sources.jar!/net/dv8tion/jda/core/events/message/GenericMessageEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="29" column="52" lean-forward="false" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.DV8FromTheWorld/JDA/-SNAPSHOT/289a264eb3c0d96f0019aed209a618bec4bd2845/JDA--SNAPSHOT-sources.jar!/net/dv8tion/jda/core/events/message/MessageReceivedEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="27" column="48" lean-forward="false" selection-start-line="27" selection-start-column="48" selection-end-line="27" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Compliment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-          <folding>
-            <element signature="e#114#115#0" expanded="false" />
-            <element signature="e#158#159#0" expanded="false" />
-            <element signature="e#195#196#0" expanded="false" />
-            <element signature="e#228#229#0" expanded="false" />
-            <element signature="e#280#281#0" expanded="false" />
-            <element signature="e#324#325#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log.log">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-47">
@@ -807,18 +756,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Playlist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="27" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#751#752#0" expanded="false" />
-            <element signature="e#779#780#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -873,20 +810,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Model/TrackScheduler.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/track/AudioReference.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/track/AudioTrackInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeAudioTrack.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -934,17 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="179" column="17" lean-forward="false" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Song.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="15" lean-forward="false" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-          <folding>
-            <element signature="e#284#285#0" expanded="false" />
-            <element signature="e#311#312#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1006,14 +918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/GuildMemberListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2">
@@ -1030,12 +934,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Audio/MusicManager.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/track/AudioReference.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-104">
-          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+        <state relative-caret-position="102">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeSignatureCipherManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2788">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/track/AudioItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153">
+          <caret line="2" column="30" lean-forward="false" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/track/AudioTrackInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeSearchProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="27" column="13" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeAudioSourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="88" column="9" lean-forward="false" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4410#4411#0" expanded="false" />
+            <element signature="e#4430#4431#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1048,44 +1002,64 @@
             <element signature="imports" expanded="true" />
             <element signature="e#2167#2168#0" expanded="true" />
             <element signature="e#2207#2208#0" expanded="true" />
-            <element signature="e#2236#2237#0" expanded="true" />
-            <element signature="e#2288#2289#0" expanded="true" />
-            <element signature="e#2315#2316#0" expanded="true" />
-            <element signature="e#2344#2345#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Audio/MusicManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="5" column="3" lean-forward="true" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Audio/AudioMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="33" column="49" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="e#4809#4810#0" expanded="true" />
+            <element signature="e#5255#5256#0" expanded="true" />
+            <element signature="e#5325#5326#0" expanded="true" />
+            <element signature="e#5364#5365#0" expanded="true" />
+            <element signature="e#5435#5436#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Playlist.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="27" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/POJO/Song.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding>
+            <element signature="e#313#314#0" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+            <element signature="e#485#486#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
+        <state relative-caret-position="183">
+          <caret line="176" column="52" lean-forward="true" selection-start-line="176" selection-start-column="52" selection-end-line="176" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sedmelluq/lavaplayer/1.2.45/f3659e92ecd5cd2e92b290fc4561ac392a400fc1/lavaplayer-1.2.45-sources.jar!/com/sedmelluq/discord/lavaplayer/source/youtube/YoutubeAudioSourceManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2839">
-          <caret line="49" column="13" lean-forward="false" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Audio/AudioMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3573#3574#0" expanded="true" />
-            <element signature="e#3629#3630#0" expanded="true" />
-            <element signature="e#4075#4076#0" expanded="true" />
-            <element signature="e#4145#4146#0" expanded="true" />
-            <element signature="e#4184#4185#0" expanded="true" />
-            <element signature="e#4255#4256#0" expanded="true" />
           </folding>
         </state>
       </provider>
