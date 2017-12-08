@@ -2,9 +2,9 @@ package POJO;
 
 public class Song {
     private String song;
-    private String songType;
+    private SongType songType;
 
-    public Song(String song, String songType) {
+    public Song(String song, SongType songType) {
         this.song = song;
         this.songType = songType;
     }
@@ -18,14 +18,14 @@ public class Song {
     }
 
     public String toString() {
-        return song + " " + songType;
+        return song + ", TYPE: " + songType;
     }
 
-    public String getSongType() {
+    public SongType getSongType() {
         return songType;
     }
 
-    public void setSongType(String songType) {
+    public void setSongType(SongType songType) {
         this.songType = songType;
     }
 }

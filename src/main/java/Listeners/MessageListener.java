@@ -5,6 +5,7 @@ import Controller.Main;
 import POJO.Insult;
 import POJO.Playlist;
 import POJO.Song;
+import POJO.SongType;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import net.dv8tion.jda.core.entities.*;
@@ -87,7 +88,7 @@ public class MessageListener extends ListenerAdapter {
                 audioMain.resume(guild);
             }
 
-            if (mentionMessage.startsWith("play")) {
+            if (mentionMessage.startsWith("play") && !mentionMessage.startsWith("playlist")) {
                 if (voiceChannel == null) {
                     channel.sendMessage("You're not in a voice channel dummy....").queue();
                 } else {
@@ -188,8 +189,11 @@ public class MessageListener extends ListenerAdapter {
                 "1.30. $play scsearch: [soundcloud song name]\n" +
                 "1.31. $playFull scsearch: [soundcloud playlist name]\n\n" +
 
+                "This plays a playlist\n" +
+                "1.40. $playlist [playlistname]\n\n" +
+
                 //THESE NEED TO BE FIXED
-                "2. $add song [songname] [type(youtube, soundcloud, link)] to [playlistname]\n" +
+                "2. $add [youtube/soundcloud/link] song [songname] -> [playlistname]\n" +
                 "3. $remove song [songname] from [playlistname]\n" +
                 "4. $show playlists\n" +
                 "5. $add playlist [playlistname]\n" +
@@ -221,8 +225,8 @@ public class MessageListener extends ListenerAdapter {
      * @param event is the event of message
      */
     public void playlistCommands(String mentionMessage, MessageReceivedEvent event) {
-        if (mentionMessage.startsWith("playlist play ")) {
-            String playlistname = mentionMessage.replaceFirst("playlist play ", "");
+        if (mentionMessage.startsWith("playlist ")) {
+            String playlistname = mentionMessage.replaceFirst("playlist ", "");
             Playlist currentplaylist = Main.getHandler().getPlaylist(playlistname);
             if (playlistname == null || playlistname.length() == 0) {
                 channel.sendMessage("That playlist doesn't exist, dummy....").queue();
@@ -232,11 +236,11 @@ public class MessageListener extends ListenerAdapter {
                 } else {
                     audioMain.connectAudio(guild, voiceChannel);
                     for (Song song: currentplaylist.getSongs()) {
-                        if (song.getSongType().length() == 0) {
-//                            audioMain.loadAndPlay(event.getTextChannel(), song.toString());
+                        if (song.getSongType().getDbName().length() == 0) {
+                            audioMain.loadAndPlay(event.getTextChannel(), song.toString(), false);
                         } else {
-                            String search = (song.getSongType().equals("youtube")) ? "ytsearch: " : "scsearch: ";
-//                            audioMain.loadAndPlay(event.getTextChannel(), search + song.getSong());
+                            String search = song.getSongType().getDbName();
+                            audioMain.loadAndPlay(event.getTextChannel(), search + song.getSong(), false);
                         }
                     }
                 }
@@ -269,11 +273,15 @@ public class MessageListener extends ListenerAdapter {
 
         if (mentionMessage.startsWith("remove playlist ")) {
             String playlistname = mentionMessage.replaceFirst("remove playlist ", "");
-            boolean removed = Main.getHandler().deletePlaylist(playlistname);
-            if (removed) {
-                channel.sendMessage(playlistname + " was removed!").queue();
+            if (Main.getHandler().playlistExists(playlistname)) {
+                boolean removed = Main.getHandler().deletePlaylist(playlistname);
+                if (removed) {
+                    channel.sendMessage(playlistname + " was removed!").queue();
+                } else {
+                    channel.sendMessage("The playlist didnt exist...").queue();
+                }
             } else {
-                channel.sendMessage("The playlist didnt exist...").queue();
+                channel.sendMessage("playlist didnt exist dummy.").queue();
             }
         }
 
@@ -306,27 +314,40 @@ public class MessageListener extends ListenerAdapter {
         }
 
         //adding a song TO a playlist
-        if (mentionMessage.startsWith("add song ")) {
-            String songAndPlaylist = mentionMessage.replaceFirst("add song ", "");
-            String[] songPlaylist = songAndPlaylist.split(" to ");
-            if (songPlaylist.length == 2) {
-                if (Main.getHandler().playlistExists(songPlaylist[1])) {
-                    String songType = (songPlaylist[0].contains("youtube "))
-                            ? (songPlaylist[0].contains("soundcloud ")) ? "youtube" : "soundcloud" : "";
+        if (mentionMessage.startsWith("add ")) {
+            String songAndPlaylist = mentionMessage.replaceFirst("add ", "");
+            String[] stringArray = songAndPlaylist.split(" ");
 
-                    if (Main.getHandler().insertSong(songPlaylist[0], songPlaylist[1], songType)) {
-                        channel.sendMessage(songPlaylist[0].replaceFirst(songType, "") + " was added to " + songPlaylist[1]).queue();
+            SongType songType = stringArray[0].equals("youtube") ? SongType.YOUTUBE :
+                    stringArray[0].equals("soundcloud") ? SongType.SOUNDCLOUD :
+                            stringArray[0].equals("link") ? SongType.LINK :
+                                    null;
+            if (songType != null) {
+                String[] songPlaylist = songAndPlaylist.split(" -> ");
+                if (songPlaylist.length == 2) {
+                    if (Main.getHandler().playlistExists(songPlaylist[1])) {
+                        if (Main.getHandler().insertSong(songPlaylist[0].replaceFirst(songType.toString(), ""),
+                                songPlaylist[1], songType.toString())) {
+                            channel.sendMessage(songPlaylist[0]
+                                    .replaceFirst(songType.toString() + " song: ", "")
+                                    + " was added to " + songPlaylist[1]).queue();
+                        } else {
+                            channel.sendMessage(songPlaylist[0]
+                                    .replaceFirst(songType + " song", "")
+                                    + " could not be added " +
+                                    "to " + songPlaylist[1] +
+                                    ". check if the song is already in the playlist " +
+                                    " , if the playlist doesn't exist," +
+                                    " or if you forgot the song type.").queue();
+                        }
                     } else {
-                        channel.sendMessage(songPlaylist[0].replaceFirst(songType, "") + " could not be added " +
-                                "to " + songPlaylist[1] +
-                                ". check if the song is already in the playlist " +
-                                " or if the playlist doesn't exist").queue();
+                        channel.sendMessage("That playlist doesn't exist...").queue();
                     }
                 } else {
-                    channel.sendMessage("That playlist doesn't exist...").queue();
+                    channel.sendMessage("Check your format").queue();
                 }
             } else {
-                channel.sendMessage("Check your format").queue();
+                channel.sendMessage("You forgot or mispelled the song type dummy.").queue();
             }
         }
 

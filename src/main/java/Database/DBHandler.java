@@ -1,10 +1,7 @@
 package Database;
 
 import Controller.Main;
-import POJO.Compliment;
-import POJO.Insult;
-import POJO.Playlist;
-import POJO.Song;
+import POJO.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -205,7 +202,12 @@ public class DBHandler {
             getPlaylist.setString(1, s);
             ResultSet rs = getPlaylist.executeQuery();
             while (rs.next()) {
-                playlist.addSong(new Song(rs.getString(1), rs.getString(3)));
+                String songtype = rs.getString(3);
+
+                playlist.addSong(new Song(rs.getString(1),
+                        songtype.equals("youtube ") ? SongType.YOUTUBE :
+                        songtype.equals("soundcloud ") ? SongType.SOUNDCLOUD :
+                        SongType.LINK));
             }
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
@@ -237,7 +239,7 @@ public class DBHandler {
             getPlaylistShuffled.setString(1, s);
             ResultSet rs = getPlaylistShuffled.executeQuery();
             while (rs.next()) {
-                playlist.addSong(new Song(rs.getString(1), rs.getString(3)));
+                playlist.addSong(new Song(rs.getString(1), SongType.valueOf(rs.getString(3))));
             }
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
@@ -254,7 +256,8 @@ public class DBHandler {
         PreparedStatement deleteStation = handler.prepareStatement(this.deletePlaylist);
         try {
             deleteStation.setString(1, s);
-            return deleteStation.execute();
+            deleteStation.execute();
+            return true;
         } catch (SQLException e) {
             Main.getLogger().log(Level.SEVERE, e.getMessage());
             return false;
