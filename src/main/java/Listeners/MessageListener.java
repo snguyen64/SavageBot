@@ -98,6 +98,19 @@ public class MessageListener extends ListenerAdapter {
                 }
             }
 
+            if (mentionMessage.equals("shuffle") && voiceChannel != null) {
+                audioMain.connectAudio(guild, voiceChannel);
+                audioMain.shuffle(event.getTextChannel(), guild);
+            }
+
+            if (mentionMessage.equals("current")) {
+                audioMain.getCurrentSong(event.getTextChannel(), guild);
+            }
+
+            if (mentionMessage.equals("queue")) {
+                audioMain.getCurrentQueue(event.getTextChannel(), guild);
+            }
+
             //LEADER SPECIFIC COMMANDS
             if (Main.getHandler().getUserIsLeader(user.getId())) {
 
@@ -139,7 +152,7 @@ public class MessageListener extends ListenerAdapter {
             List<User> mentionedLeaders = message.getMentionedUsers();
             if (mentionedLeaders.size() > 0) {
                 for (User u: mentionedLeaders) {
-                    if (!Main.getHandler().getUserIsLeader(u.toString())) {
+                    if (!Main.getHandler().getUserIsLeader(u.getId())) {
                         Main.getHandler().insertLeader(u.getId());
                         channel.sendMessage("Heil, mein Führer!  ヾ(´ε｀*)"
                                 + u.getAsMention()).queue();
@@ -159,7 +172,7 @@ public class MessageListener extends ListenerAdapter {
                             //adding an exception for me
                             //you can't dethrone the king
                             && !(u.getName().equals("Steven"))) {
-                        Main.getHandler().removeLeader(u.getName());
+                        Main.getHandler().removeLeader(u.getId());
                         channel.sendMessage("Pfft.... you were " +
                                 "a shitty leader anyways, " + u.getAsMention()).queue();
                     } else {
@@ -184,9 +197,21 @@ public class MessageListener extends ListenerAdapter {
                 "$play scsearch: [soundcloud song name]\n\n" +
 
                 "This will play the whole playlist from a link or from the search\n" +
-                "$playFull [song link]\n\n" +
-                "$playFull ytsearch: [youtube playlist name]\n\n" +
-                "$playFull scsearch: [soundcloud playlist name]\n\n" +
+                "$playFull [song link]\n" +
+                "$playFull ytsearch: [youtube playlist name]\n" +
+                "$playFull scsearch: [soundcloud playlist name]\n" +
+
+                "$skip\n" +
+                "$resume\n" +
+                "$pause\n" +
+                "This will get the current song\n" +
+                "$current\n" +
+                "This will get the songs in the current queue\n" +
+                "$queue\n" +
+                "$shuffle\n\n" +
+
+                "This will kick the bot from the voice channel and remove the queue\n" +
+                "$leave\n\n" +
 
                 "This plays a previously saved playlist\n" +
                 "$playlist [playlistname]\n\n" +

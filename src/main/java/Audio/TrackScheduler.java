@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
@@ -16,6 +17,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
+    private final Queue<AudioTrack> manipulatedQueue;
     private final BlockingQueue<AudioTrack> queue;
 
     /**
@@ -23,6 +25,7 @@ public class TrackScheduler extends AudioEventAdapter {
      */
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
+        this.manipulatedQueue = new LinkedList<>();
         this.queue = new LinkedBlockingQueue<>();
     }
 
@@ -37,13 +40,19 @@ public class TrackScheduler extends AudioEventAdapter {
         // track goes to the queue instead.
         if (!player.startTrack(track, true)) {
             queue.add(track);
+            manipulatedQueue.add(track);
         }
     }
 
     public void queue(List<AudioTrack> audioTracks) {
         for (AudioTrack audioTrack: audioTracks) {
             queue.add(audioTrack);
+            manipulatedQueue.add(audioTrack);
         }
+    }
+
+    public int getSize() {
+        return queue.size();
     }
 
     /**
@@ -52,7 +61,7 @@ public class TrackScheduler extends AudioEventAdapter {
     public void nextTrack() {
         // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
         // giving null to startTrack, which is a valid argument and will simply stop the player.
-        player.startTrack(queue.poll(), false);
+        player.startTrack(manipulatedQueue.poll(), false);
     }
 
     @Override
@@ -63,12 +72,16 @@ public class TrackScheduler extends AudioEventAdapter {
         }
     }
 
+    public Queue<AudioTrack> getQueue() {
+        return manipulatedQueue;
+    }
+
     public boolean isEmpty() {
         return queue.size() == 0;
     }
 
     public void shuffle() {
-        Collections.shuffle((List<?>) queue);
+        Collections.shuffle((List<?>) manipulatedQueue);
     }
 
     public void clear() {

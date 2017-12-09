@@ -77,9 +77,7 @@ public class AudioMain {
                 if (linkPlaylist) {
                     //adds the full playlist
                     List<AudioTrack> queue = playlist.getTracks();
-                    for (AudioTrack audioTrack : queue) {
-                        channel.sendMessage("Adding to queue: " + audioTrack.getInfo().title).queue();
-                    }
+                    channel.sendMessage("Playlist added to the queue").queue();
                     musicManager.getScheduler().queue(queue);
                     if (musicManager.getPlayer().getPlayingTrack() == null) {
                         musicManager.getScheduler().nextTrack();
@@ -105,6 +103,46 @@ public class AudioMain {
                 channel.sendMessage("Could not play: " + exception.getMessage()).queue();
             }
         });
+    }
+
+    public void shuffle(TextChannel channel, Guild guild) {
+        if (getGuildAudioPlayer(guild).getScheduler().isEmpty()) {
+            channel.sendMessage("There's no songs in queue...").queue();
+        } else {
+            getGuildAudioPlayer(guild).getScheduler().shuffle();
+            channel.sendMessage("Queue shuffled.").queue();
+        }
+    }
+
+    public void getCurrentSong(TextChannel channel, Guild guild) {
+        if (getGuildAudioPlayer(guild).getPlayer() == null
+                || getGuildAudioPlayer(guild).getPlayer().getPlayingTrack() == null) {
+            channel.sendMessage("There is no song playing...").queue();
+        } else {
+            channel.sendMessage("Current Track: "
+                    + getGuildAudioPlayer(guild).getPlayer().getPlayingTrack().getInfo().title).queue();
+        }
+    }
+
+    public void getCurrentQueue(TextChannel channel, Guild guild) {
+        if (getGuildAudioPlayer(guild).getPlayer() == null
+                || getGuildAudioPlayer(guild).getScheduler().isEmpty()) {
+            channel.sendMessage("There is no playlist...").queue();
+        } else {
+            String queue = "";
+            int counter = 0;
+            for (AudioTrack audioTrack: getGuildAudioPlayer(guild).getScheduler().getQueue()) {
+                queue += audioTrack.getInfo().title + "\n";
+                counter++;
+                if (counter >= 10) {
+                    channel.sendMessage("Current queue is larger than 10 elements. " +
+                            "Here are the next 10 songs in the queue").queue();
+                    break;
+                }
+            }
+            channel.sendMessage("Current Queue\n"
+                    + queue).queue();
+        }
     }
 
     public void play(MusicManager musicManager, AudioTrack track) {

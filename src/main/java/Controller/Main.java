@@ -77,8 +77,10 @@ public class Main {
     private static void startBot() {
         try
         {
+            //old token
+            //MzQyNzMyMjE2OTA1NzYwNzY5.DGUBNQ.StB-YnlMAJ6FodJh233Wq1YbHcs
             discordBot = new JDABuilder(AccountType.BOT)
-                    .setToken("MzQyNzMyMjE2OTA1NzYwNzY5.DGUBNQ.StB-YnlMAJ6FodJh233Wq1YbHcs")
+                    .setToken("Mzg5MTY3OTQ5NDc2MjY1OTk1.DQ3ogA.aVYqUJRdN6Op_OxfnttdUsNbKOQ")
                     .addEventListener(new MessageListener())
                     .addEventListener(new GuildMemberListener())
                     .buildBlocking();
