@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="05284b5c-7add-43d3-8df5-b25ad744060e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/botapp.sql" afterPath="$PROJECT_DIR$/db/botapp.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" afterPath="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Util/Parser.java" afterPath="$PROJECT_DIR$/src/main/java/Util/Parser.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -56,9 +56,11 @@
       <file leaf-file-name="MessageListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1785">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="2732">
+              <caret line="425" column="31" lean-forward="false" selection-start-line="425" selection-start-column="31" selection-end-line="425" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,11 +68,9 @@
       <file leaf-file-name="Parser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Util/Parser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="48" column="64" lean-forward="true" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -108,7 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>could</find>
       <find>onread</find>
       <find>could not be add</find>
       <find>music</find>
@@ -138,6 +137,7 @@
       <find>play</find>
       <find>playlist</find>
       <find>system</find>
+      <find>compliment</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -466,8 +466,8 @@
         <option value="$PROJECT_DIR$/src/main/java/POJO/SongType.java" />
         <option value="$PROJECT_DIR$/src/main/java/POJO/Song.java" />
         <option value="$PROJECT_DIR$/src/main/java/Database/DBHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/Util/parser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/Util/Parser.java" />
       </list>
     </option>
@@ -566,6 +566,14 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="POJO" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="savage" type="b2602c69:ProjectViewProjectNode" />
+              <item name="savageBot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Util" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1063,14 +1071,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1785">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/java/io/PrintWriter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
@@ -1082,13 +1082,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Util/Parser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Listeners/MessageListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="48" column="64" lean-forward="true" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="64" />
+        <state relative-caret-position="2732">
+          <caret line="425" column="31" lean-forward="false" selection-start-line="425" selection-start-column="31" selection-end-line="425" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Util/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

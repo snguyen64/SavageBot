@@ -394,7 +394,7 @@ public class MessageListener extends ListenerAdapter {
                 for (User u: mentionedUsers) {
                     channel.sendMessage(Main.getHandler()
                             .getInsult().getInsult()
-                            + ", " + u.getAsMention()).queue();
+                            + " " + u.getAsMention()).queue();
                 }
             }
         }
@@ -423,7 +423,7 @@ public class MessageListener extends ListenerAdapter {
                 for (User u: mentionedUsers) {
                     channel.sendMessage(Main.getHandler()
                             .getCompliment().getCompliment()
-                            + ", " + u.getAsMention()).queue();
+                            + " " + u.getAsMention()).queue();
                 }
             }
         }

@@ -1,10 +1,8 @@
 package Util;
 
 import Controller.Main;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.io.*;
-import java.util.Scanner;
 import java.util.logging.Level;
 
 public class Parser {
