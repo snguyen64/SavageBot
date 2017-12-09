@@ -120,7 +120,7 @@ public class MessageListener extends ListenerAdapter {
      * $hi! is sent
      */
     public void greetings() {
-        if (Main.getHandler().getUserIsLeader(user.getName())) {
+        if (Main.getHandler().getUserIsLeader(user.getId())) {
             channel.sendMessage("Heil, mein Führer!  ヾ(´ε｀*)").queue();
         } else {
             channel.sendMessage("Hola " + user.getAsMention() + "!").queue();
@@ -179,31 +179,38 @@ public class MessageListener extends ListenerAdapter {
                 "Commands List\n" +
                 ".-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.-*`*-.\n\n" +
                 "To play music, either use a link, or a search function\n" +
-                "1.1 $play [song link]\n\n" +
-                "This will play the whole youtube playlist\n" +
-                "1.1 $playFull [song link]\n\n" +
-                "1.20 $play ytsearch: [youtube song name]\n" +
-                "1.21 $playFull ytsearch: [youtube playlist name]\n\n" +
-                "1.30. $play scsearch: [soundcloud song name]\n" +
-                "1.31. $playFull scsearch: [soundcloud playlist name]\n\n" +
+                "$play [song link]\n\n" +
+                "$play ytsearch: [youtube song name]\n" +
+                "$play scsearch: [soundcloud song name]\n\n" +
 
-                "This plays a playlist\n" +
-                "1.40. $playlist [playlistname]\n\n" +
+                "This will play the whole playlist from a link or from the search\n" +
+                "$playFull [song link]\n\n" +
+                "$playFull ytsearch: [youtube playlist name]\n\n" +
+                "$playFull scsearch: [soundcloud playlist name]\n\n" +
+
+                "This plays a previously saved playlist\n" +
+                "$playlist [playlistname]\n\n" +
 
                 //THESE NEED TO BE FIXED
-                "2. $add [youtube/soundcloud/link] song [songname] -> [playlistname]\n" +
-                "3. $remove song [songname] from [playlistname]\n" +
-                "4. $show playlists\n" +
-                "5. $add playlist [playlistname]\n" +
-                "6. $remove playlist [playlistname]\n" +
-                "7. $show songs for [playlist name]\n\n" +
 
+                "Playlist commands\n" +
+                "$add playlist [playlistname]\n" +
+                "$remove playlist [playlistname]\n" +
+                "$show playlists\n\n" +
+                "$show songs for [playlist name]\n" +
 
-                "8. $add insult [insult phrase]\n" +
-                "9. $add compliment [compliment phrase]\n" +
-                "10. $insult @[personname]\n" +
-                "11. $compliment @[personname]\n" +
+                "Adding and removing songs to a playlist\n" +
+                "$add [youtube/soundcloud/link] song [songname] -> [playlistname]\n" +
+                "$remove song [songname] from [playlistname]\n\n" +
+
+                "MISC\n" +
+                "$add insult [insult phrase]\n" +
+                "$insult @[personname]\n\n" +
+
+                "$add compliment [compliment phrase]\n" +
+                "$compliment @[personname]\n" +
                 "```").queue();
+
         if (Main.getHandler().getUserIsLeader(user.getName())) {
             channel.sendMessage("\n```" +
                     "Command List FOR LEADERS!\n" +
