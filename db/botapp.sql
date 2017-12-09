@@ -42,3 +42,14 @@ CREATE TABLE Leaders (
 name VARCHAR(255),
 PRIMARY KEY name_key(name)
 );
+
+CREATE TABLE Greetings (
+user VARCHAR(255),
+greeting VARCHAR(255),
+PRIMARY KEY user_key(user)
+);
+
+CREATE TABLE Jokes (
+joke VARCHAR(255),
+PRIMARY KEY joke_key(joke)
+);
